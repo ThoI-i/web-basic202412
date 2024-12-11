@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @WebServlet("/chap02/dancer/process")
 public class DancerProcessServlet extends HttpServlet {
@@ -19,10 +22,43 @@ public class DancerProcessServlet extends HttpServlet {
         String danceLevel = req.getParameter("danceLevel");
         String[] genres = req.getParameterValues("genres");// 다중 선택 가능
 
-        System.out.println("name = " + name);
-        System.out.println("crewName = " + crewName);
-        System.out.println("danceLevel = " + danceLevel);
-        System.out.println("genres = " + Arrays.toString(genres));
+//        System.out.println("name = " + name);
+//        System.out.println("crewName = " + crewName);
+//        System.out.println("danceLevel = " + danceLevel);
+//        System.out.println("genres = " + Arrays.toString(genres));
+
+        List<Genre> genreList = new ArrayList<>();
+        for (String g : genres) {
+            genreList.add(Genre.valueOf(g));
+        }
+
+        Dancer dancer = new Dancer(
+                name, crewName, DanceLevel.valueOf(danceLevel), genreList
+        );
+//        System.out.println("dancer = " + dancer);
+        DancerList.addDancer(dancer);
+
+        // 터미널에 정상적으로 쌓이는지 확인
+        List<Dancer> dancerList = DancerList.getDancerList();
+        dancerList.forEach(System.out::println);
+
+        // 결과 출력
+        resp.setContentType("text/html");
+        resp.setCharacterEncoding("utf-8");
+
+        PrintWriter w = resp.getWriter();
+
+        w.write("<!DOCTYPE html>\n");
+        w.write("<html>\n");
+        w.write("<head>\n");
+        w.write("</head>\n");
+        w.write("<body>\n");
+
+        w.write("<h1>" + dancer.getName() + "님이 등록되었습니다. </h1>");
+        w.write("<a href=\"/chap02/dancer/show-list\">댄서 정보 모아보기</a>");
+
+        w.write("</body>\n");
+        w.write("</html>");
     }
 }
 
