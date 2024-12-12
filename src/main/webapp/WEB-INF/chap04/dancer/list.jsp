@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -40,5 +39,31 @@
   </ul>
 
   <a href="/mvc/v1/register">다시 등록하기</a>
+
+  <script>
+    // li태그들에게 인덱스 부여하기
+    [...document.querySelectorAll('li')].forEach(($li, i) => {
+      $li.dataset.index = i;
+    });
+
+    const $dancerList = document.getElementById('dancer-list');
+    $dancerList.addEventListener('click', e => {
+      if (!e.target.matches('.del-btn')) return;
+
+      // console.log('click: ', e.target);
+
+      const $targetLi = e.target.closest('li');
+      // console.log($targetLi);
+
+      const index = $targetLi.dataset.index;
+      console.log(index);
+      
+
+      // 삭제 요청 보내기
+      window.location.href='/mvc/v1/remove?id=' + index;
+
+    });
+  </script>
+
 </body>
 </html>
