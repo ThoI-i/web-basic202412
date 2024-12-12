@@ -1,24 +1,46 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        label {
+            display: block;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
 
-  <%--
-    String name = (String) request.getAttribute("name");
-    String crew = (String) request.getAttribute("crew");
-    String level = (String) request.getAttribute("level");
-  --%>
+<h1>MVC-V1 버전 댄서등록 폼</h1>
+<form action="/mvc/v1/process" method="get" id="reg-form">
+    <label>
+        # 이름 : <input type="text" name="name">
+    </label>
+    <label>
+        # 크루이름 : <input type="text" name="crewName">
+    </label>
+    <label>
+        # 레벨 :
+        <input type="radio" name="danceLevel" value="PROFESSIONAL"> 프로
+        <input type="radio" name="danceLevel" value="AMATEUR"> 아마추어
+        <input type="radio" name="danceLevel" value="BEGINNER"> 초보자
+    </label>
+    <label>
+        # 장르 :
+        <input type="checkbox" name="genres" value="HIPHOP"> 힙합
+        <input type="checkbox" name="genres" value="STREET"> 스트릿
+        <input type="checkbox" name="genres" value="KPOP"> 케이팝
+    </label>
+    <label>
+        <button id="reg-btn" type="submit">등록</button>
+    </label>
+</form>
 
-  <h1>댄서 등록 결과 페이지입니다.</h1>
-  <h2>${dancer.name}님 (소속: ${dancer.crewName})이 정상 등록되었습니다.</h2>
-  <h3>댄스 수준: ${dancer.danceLevel}</h3>
-
-  <a href="/mvc/v1/register">다시 등록하러 가기</a>
-  <a href="/mvc/v1/show">댄서 목록 조회하기</a>
 </body>
 </html>
